@@ -4,13 +4,23 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '2'))
     skipDefaultCheckout true
   }
-  stage('Test') {
-    agent { label 'nodejs-app' }
-    steps {
-      checkout scm
-      container('nodejs') {
-        echo 'Hello World!'   
-        sh 'node --version'
+  stages {
+    stage('Test') {
+      steps {
+        checkout scm
+        container('nodejs') {
+          echo 'Hello World!'   
+          sh 'node --version'
+        }
+      }
+    }
+    stage('Build and Push Image') {
+      when {
+         beforeAgent true
+         branch 'master'
+      }
+      steps {
+         echo "TODO - build and push image"
       }
     }
   }
