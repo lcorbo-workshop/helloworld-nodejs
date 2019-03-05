@@ -10,7 +10,8 @@ pipeline {
         kubernetes {
           label 'nodejs-app-inline'
           yamlFile 'nodejs-pod.yaml'
-      } 
+        } 
+      }
       steps {
         checkout scm
         container('nodejs') {
